@@ -1,5 +1,8 @@
 # EUIPO MCP Server
 
+This repo is a fork of the https://github.com/enxebre/euipo-mcp-server.
+Thanks for his work.
+
 MCP server for the [EUIPO](https://euipo.europa.eu/) (European Union Intellectual Property Office) APIs — trademark search and goods & services classification.
 
 ## Setup
@@ -13,11 +16,27 @@ Sandbox access is approved in ~1 day. Production takes up to 1 week.
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/euipo-mcp-server.git
+git clone https://github.com/mentlergy/euipo-mcp-server.git
 cd euipo-mcp-server
 cp .env.example .env.sandbox
 # Edit .env.sandbox with your credentials
 ```
+## Installing uv
+
+### Windows
+```Powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+#### Linux
+With curl:
+```Bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+or wget
+```Bash
+wget -qO- https://astral.sh/uv/install.sh | sh
+```
+
 
 ## Usage with Claude Code
 
@@ -27,7 +46,7 @@ Add to your `.mcp.json`:
 {
   "mcpServers": {
     "euipo": {
-      "command": "uv",
+      "command": "/absolute_path_to_the_uv_executable/uv",
       "args": ["--directory", "/path/to/euipo-mcp-server", "run", "euipo-mcp-server"],
       "env": {
         "EUIPO_CLIENT_ID": "your-client-id",
