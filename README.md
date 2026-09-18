@@ -21,13 +21,15 @@ cd euipo-mcp-server
 cp .env.example .env.sandbox
 # Edit .env.sandbox with your credentials
 ```
+The examples below do not use this file only the contents.
+
 ## Installing uv
 
 ### Windows
 ```Powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
-#### Linux
+### Linux
 With curl:
 ```Bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -36,7 +38,6 @@ or wget
 ```Bash
 wget -qO- https://astral.sh/uv/install.sh | sh
 ```
-
 
 ## Usage with Claude Code
 
@@ -47,16 +48,33 @@ Add to your `.mcp.json`:
   "mcpServers": {
     "euipo": {
       "command": "/absolute_path_to_the_uv_executable/uv",
-      "args": ["--directory", "/path/to/euipo-mcp-server", "run", "euipo-mcp-server"],
+      "args": ["--directory", "absolute_path_to_the_local_repo/euipo-mcp-server", "run", "euipo-mcp-server"],
       "env": {
         "EUIPO_CLIENT_ID": "your-client-id",
         "EUIPO_CLIENT_SECRET": "your-client-secret",
-        "EUIPO_USE_SANDBOX": "true"
+        "EUIPO_USE_SANDBOX": "false"
       }
     }
   }
 }
 ```
+If you use the sandbox instead of production set the EUIPO_USE_SANDBOX to true.
+
+## Usage with the ChatGPT
+Put this to your config.toml located in the .codex directory in your home directory.
+
+```Toml
+[mcp_servers.euipo]
+command = "absolute_path_to_the_uv_binary/uv.exe"
+args = ["--directory", "absolute_path_to_the_local_repo/euipo-mcp-server", "run", "euipo-mcp-server"]
+
+[mcp_servers.euipo.env]
+EUIPO_CLIENT_ID = "your-client-id"
+EUIPO_CLIENT_SECRET = "your-client-secret"
+EUIPO_USE_SANDBOX = "false"
+UV_PROJECT_ENVIRONMENT = "your_profile_directory/.venvs/euipo-mcp-server"
+``` 
+The UV_PROJECT_ENVIRONMENT is needed if you put the repo dir to a windows network drive. In this case the venv should de created to a local place.
 
 ## Tools
 
