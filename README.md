@@ -23,7 +23,7 @@ cp .env.example .env.sandbox
 ```
 The examples below do not use this file only the contents.
 
-## Installing uv
+## Installation of the uv tool
 
 ### Windows
 ```Powershell
