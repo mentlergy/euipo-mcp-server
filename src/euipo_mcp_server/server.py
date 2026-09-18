@@ -240,7 +240,7 @@ async def get_trademark(application_number: str) -> str:
 
 @mcp.tool()
 async def get_trademark_image(application_number: str) -> str:
-    """Get the image/thumbnail URL for a figurative trademark.
+    """Get the thumbnail and full-resolution image URLs for a figurative trademark.
 
     Args:
         application_number: The EUIPO application number
@@ -249,10 +249,13 @@ async def get_trademark_image(application_number: str) -> str:
     if not client.has_credentials:
         return NO_CREDENTIALS_MSG
 
-    url = await client.get_trademark_image_url(application_number)
+    thumbnail_url = await client.get_trademark_image_url(application_number, thumbnail=True)
+    full_url = await client.get_trademark_image_url(application_number, thumbnail=False)
     return (
-        f"Trademark image thumbnail URL:\n{url}\n\n"
-        "Note: This URL requires authentication headers to access. "
+        f"Trademark image URLs:\n"
+        f"- Thumbnail: {thumbnail_url}\n"
+        f"- Full resolution: {full_url}\n\n"
+        "Note: These URLs require authentication headers (Bearer token + X-IBM-Client-Id) to access. "
         "The image is available for FIGURATIVE, SHAPE_3D, and other visual mark types."
     )
 

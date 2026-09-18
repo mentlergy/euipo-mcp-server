@@ -107,8 +107,11 @@ class EUIPOClient:
     async def get_trademark(self, application_number: str) -> dict[str, Any]:
         return await self._request("GET", f"/trademark-search/trademarks/{application_number}")
 
-    async def get_trademark_image_url(self, application_number: str) -> str:
-        return f"{self.api_base}/trademark-search/trademarks/{application_number}/image/thumbnail"
+    async def get_trademark_image_url(self, application_number: str, thumbnail: bool = True) -> str:
+        path = f"/trademark-search/trademarks/{application_number}/image"
+        if thumbnail:
+            path += "/thumbnail"
+        return f"{self.api_base}{path}"
 
     # --- Goods and Services API ---
 
